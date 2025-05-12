@@ -22,15 +22,20 @@ RUN docker-php-ext-install pdo pdo_mysql && \
 RUN if [ $APP_ENV == 'prod' ]; then \
         apt-get clean && \
         apt-get autoclean && \
-        rm /var/www/web/phpinfo.php; \
+        rm /var/www/web/phpinfo.php && \
+        mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
+        rm /usr/local/etc/php/php.ini-development; \
     else \
-        apt-get install -y mc; \
+        apt-get install -y mc && \
+        mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
+        rm /usr/local/etc/php/php.ini-production; \
     fi
 
 WORKDIR /var/www
 
-ADD .etc /etc
+ADD .etc/apache2 /etc/apache2
 ADD . /var/www
+RUN rm -R /var/www/.etc
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
