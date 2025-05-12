@@ -16,12 +16,18 @@ RUN apt-get update && \
         unzip \
         zip
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql && \
+    if [ $APP_ENV == 'prod' ]; then \
+        rm /usr/local/etc/php/conf.d/xdebug.ini; \
+    else \
+        pecl install xdebug-$(git ls-remote --sort='version:refname' --tags https://github.com/xdebug/xdebug.git | grep -oh "3\.1\.[0-9]" | tail -1); \
+    fi
 
 RUN if [ $APP_ENV == 'prod' ]; then \
         apt-get clean && \
         apt-get autoclean && \
         rm /var/www/web/phpinfo.php && \
+        rm /var/www/web/xdebuginfo.php && \
         mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
         rm /usr/local/etc/php/php.ini-development; \
     else \
