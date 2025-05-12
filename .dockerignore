@@ -1,0 +1,12 @@
+###> app ###
+
+# IDE workspace
+/.idea
+
+# Developer sandbox
+/__
+
+# Composer libs
+/vendor
+
+###< app ###
