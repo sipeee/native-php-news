@@ -1,0 +1,17 @@
+###> app ###
+
+# IDE workspace
+/.idea
+
+# Developer sandbox
+/__
+
+# Custom environment files
+/.env.local
+/.env.local.php
+/.env.*.local
+
+# Composer libs
+/vendor/
+
+###< app ###
