@@ -11,6 +11,10 @@
 /.env.local.php
 /.env.*.local
 
+# Logs
+/log
+!/log/.gitkeep
+
 # Composer libs
 /vendor/
 
