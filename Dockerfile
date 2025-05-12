@@ -16,8 +16,7 @@ RUN apt-get update && \
         unzip \
         zip
 
-RUN docker-php-ext-install pdo pdo_mysql && \
-    docker-php-ext-enable opcache
+RUN docker-php-ext-install pdo pdo_mysql
 
 RUN if [ $APP_ENV == 'prod' ]; then \
         apt-get clean && \
@@ -34,8 +33,15 @@ RUN if [ $APP_ENV == 'prod' ]; then \
 WORKDIR /var/www
 
 ADD .etc/apache2 /etc/apache2
+COPY .etc/php /usr/local/etc/php
 ADD . /var/www
 RUN rm -R /var/www/.etc
+
+RUN if [ $APP_ENV == 'prod' ]; then \
+        sed -i -E 's/\$\{PHP_OPCACHE_VALIDATE_TIMESTAMPS\}/0/g' /usr/local/etc/php/conf.d/opcache.ini; \
+    else \
+        sed -i -E 's/\$\{PHP_OPCACHE_VALIDATE_TIMESTAMPS\}/1/g' /usr/local/etc/php/conf.d/opcache.ini; \
+    fi
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
