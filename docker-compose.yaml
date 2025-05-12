@@ -1,0 +1,37 @@
+services:
+    news-web:
+        container_name: 'news-web'
+        build: .
+        ports:
+            - '80${PROJECT_NUMBER}:80'
+        env_file: '.env'
+        depends_on:
+            - 'news-db'
+        links:
+            - 'news-db'
+        volumes:
+            - 'news-project-volume:/var/www'
+
+    news-db:
+        container_name: 'news-db'
+        image: 'mysql:latest'
+        ports:
+            - '33${PROJECT_NUMBER}:${MYSQL_PORT}'
+        env_file: '.env'
+        volumes:
+            - 'news-database-volume:/var/lib/mysql'
+
+    news-sftp:
+        container_name: 'news-sftp'
+        image: 'atmoz/sftp:latest'
+        ports:
+            - '22${PROJECT_NUMBER}:22'
+        volumes:
+            - 'news-project-volume:/home/user'
+        command: user:pass
+
+volumes:
+    news-database-volume:
+        name: 'news-database-volume'
+    news-project-volume:
+        name: 'news-project-volume'

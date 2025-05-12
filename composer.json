@@ -1,0 +1,11 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+    },
+    "require": {
+        "php": "7.4.*"
+    }
+}
