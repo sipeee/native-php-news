@@ -21,7 +21,8 @@ RUN docker-php-ext-install pdo pdo_mysql && \
 
 RUN if [ $APP_ENV == 'prod' ]; then \
         apt-get clean && \
-        apt-get autoclean; \
+        apt-get autoclean && \
+        rm /var/www/web/phpinfo.php; \
     else \
         apt-get install -y mc; \
     fi
