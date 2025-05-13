@@ -27,6 +27,11 @@ class EnvConfig
         return getenv($key);
     }
 
+    public function isProdEnvironment(): string
+    {
+        return $this->getEnv('APP_ENV') === 'prod';
+    }
+
     public function getDsnConfig(): string
     {
         return sprintf('mysql:host=%s;port=%s;dbname=%s', $this->getEnv('MYSQL_HOST'), $this->getEnv('MYSQL_PORT'), $this->getEnv('MYSQL_DATABASE'));
