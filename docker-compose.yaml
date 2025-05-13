@@ -11,6 +11,7 @@ services:
             - 'news-db'
         volumes:
             - 'news-project-volume:/var/www'
+            - 'news-upload-volume:/var/www/web/uploads'
 
     news-db:
         container_name: 'news-db'
@@ -35,3 +36,5 @@ volumes:
         name: 'news-database-volume'
     news-project-volume:
         name: 'news-project-volume'
+    news-upload-volume:
+        name: 'news-upload-volume'

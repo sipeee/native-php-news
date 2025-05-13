@@ -39,7 +39,7 @@ RUN if [ $APP_ENV == 'prod' ]; then \
 WORKDIR /var/www
 
 ADD .etc/apache2 /etc/apache2
-COPY .etc/php /usr/local/etc/php
+ADD .etc/php /usr/local/etc/php
 ADD . /var/www
 RUN rm -R /var/www/.etc
 
@@ -58,7 +58,7 @@ RUN if [ $APP_ENV == 'prod' ]; then \
         composer install; \
     fi
 
-RUN chmod 0777 /var/www/var/log /var/www/var/twig_cache
+RUN chmod 0777 /var/www/var/log /var/www/var/twig_cache /var/www/web/uploads
 
 RUN a2dissite 000-default && \
     a2ensite news-local && \

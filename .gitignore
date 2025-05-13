@@ -20,4 +20,8 @@
 # Composer libs
 /vendor/
 
+# Uploaded files
+/web/uploads
+!/web/uploads/.gitkeep
+
 ###< app ###

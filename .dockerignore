@@ -6,7 +6,17 @@
 # Developer sandbox
 /__
 
+# Temporary files
+/var/log
+!/var/log/.gitkeep
+/var/twig_cache
+!/var/twig_cache/.gitkeep
+
 # Composer libs
 /vendor
+
+# Uploaded files
+/web/uploads
+!/web/uploads/.gitkeep
 
 ###< app ###
