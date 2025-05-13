@@ -10,8 +10,8 @@ services:
         links:
             - 'news-db'
         volumes:
-            - 'news-project-volume:/var/www'
             - 'news-upload-volume:/var/www/web/uploads'
+            - 'news-project-volume:/var/www'
 
     news-db:
         container_name: 'news-db'
