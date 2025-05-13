@@ -37,7 +37,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <a href="" class="btn btn-primary article-show-button">
+                        <a href="/show.php?{{ {'id': oneNews.id} | url_encode | escape('html_attr') }}" class="btn btn-primary article-show-button">
                             Show post
                         </a>
                     </div>
