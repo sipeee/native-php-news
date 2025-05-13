@@ -11,7 +11,7 @@ class IndexController
     {
         $repository = new Repository();
 
-        TwigRenderer::getInstance()->render('index.twig', [
+        TwigRenderer::getInstance()->render('index.html.twig', [
             'news' => $repository->queryPublishedNews(),
         ]);
     }

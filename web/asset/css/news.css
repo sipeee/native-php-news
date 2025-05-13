@@ -1,0 +1,41 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-color: #333;
+}
+body, html {
+    background: #fff;
+}
+
+.logo-header{
+    margin: 0;
+    padding: 0;
+    height: 120px;
+    background: #d71921 url('/asset/image/hammer_logo.png') no-repeat center center;
+}
+.header-section {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+hr{
+    color: #d71921;
+    border-width: 3px;
+    margin-top: 0;
+}
+
+.post-details {
+    font-style: italic;
+    font-size: 12px;
+}
+
+.article-show-button{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.article-header-block p{
+    margin-bottom: 4px;
+}
+
+.text-right {
+    text-align: right;
+}

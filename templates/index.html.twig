@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        {% for oneNews in news %}
+        {% if 0 < loop.index0 and 0 == loop.index0 % 2 %}
+    </div>
+    <div class="row">
+        {% endif %}
+        <div class="col-md-6 col-xs-12">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4 class="text-center article-title">{{ oneNews.title }}</h4>
+                    </div>
+                </div>
+                <div class="row article-header-block">
+                    <div class="col-md-6 col-xs-12">
+                        <h6>Author</h6>
+                        <p class="post-details">{{ oneNews.author }}</p>
+                    </div>
+                    <div class="col-md-6 col-xs-12 text-right">
+                        <h6>Publishing date</h6>
+                        <p class="post-details">{{ oneNews.publish_at | date('Y. m. d. H:i') }}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>{{ oneNews.short_content }}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a href="" class="btn btn-primary article-show-button">
+                            Show post
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
