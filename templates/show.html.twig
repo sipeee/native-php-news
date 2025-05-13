@@ -17,6 +17,7 @@
         <hr />
         <div class="col-xs-12">
             <h4>{{ article.short_content }}</h4>
+            <p class="text-center"><img src="/uploads/news/{{ article.id }}/{{ article.image }}" class="article-image" alt="Article image" /></p>
         </div>
         <div class="col-xs-12">
             {% for contentLine in (article.content | split("\n")) %}
