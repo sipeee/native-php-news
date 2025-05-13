@@ -62,3 +62,4 @@ RUN a2dissite 000-default && \
     a2ensite news-local && \
     a2ensite news-prod
 
+ENV PATH "$PATH:/var/www/vendor/bin"
