@@ -58,6 +58,8 @@ RUN if [ $APP_ENV == 'prod' ]; then \
         composer install; \
     fi
 
+RUN chmod 0777 ./var/log ./var/twig_cache
+
 RUN a2dissite 000-default && \
     a2ensite news-local && \
     a2ensite news-prod

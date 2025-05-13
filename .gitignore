@@ -11,9 +11,11 @@
 /.env.local.php
 /.env.*.local
 
-# Logs
-/log
-!/log/.gitkeep
+# Temporary files
+/var/log
+!/var/log/.gitkeep
+/var/twig_cache
+!/var/twig_cache/.gitkeep
 
 # Composer libs
 /vendor/
