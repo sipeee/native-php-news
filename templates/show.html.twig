@@ -19,7 +19,9 @@
             <h4>{{ article.short_content }}</h4>
         </div>
         <div class="col-xs-12">
-            {{ article.content }}
+            {% for contentLine in (article.content | split("\n")) %}
+                <p>{{ contentLine }}</p>
+            {% endfor %}
         </div>
         <div class="col-xs-12 text-center">
             <a href="/" class="btn btn-primary article-show-button">
