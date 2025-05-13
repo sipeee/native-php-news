@@ -1,12 +1,12 @@
 <?php
 
 use \Phpmig\Adapter;
-use \App\EnvConfig;
+use \App\Model\ConnectionProvider;
 
 $container = new ArrayObject();
-$appConfig = EnvConfig::getInstance();
+$connProvider = ConnectionProvider::getInstance();
 
-$container['connection'] = $appConfig->createDbConnection();
+$container['connection'] = $connProvider->getConnection();
 
 // replace this with a better Phpmig\Adapter\AdapterInterface
 $container['phpmig.adapter'] = new Adapter\PDO\Sql($container['connection'], 'migrations');

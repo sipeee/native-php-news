@@ -32,17 +32,6 @@ class EnvConfig
         return sprintf('mysql:host=%s;port=%s;dbname=%s', $this->getEnv('MYSQL_HOST'), $this->getEnv('MYSQL_PORT'), $this->getEnv('MYSQL_DATABASE'));
     }
 
-    /**
-     * @return bool
-     */
-    public function createDbConnection(): \PDO
-    {
-        $dbh = new \PDO($this->getDsnConfig(), $this->getEnv('MYSQL_USER'), $this->getEnv('MYSQL_PASSWORD'));
-        $dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-        return $dbh;
-    }
-
     private function loadEnvVars()
     {
         Dotenv::createImmutable(__DIR__);
