@@ -6,6 +6,7 @@
     "autoload": {
     },
     "require": {
-        "php": "7.4.*"
+        "php": "7.4.*",
+        "davedevelopment/phpmig": "^1.7"
     }
 }
