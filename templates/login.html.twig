@@ -6,6 +6,15 @@
     <form action="/login.php" method="post">
         <div class="container-fluid login-form">
             <h4>Log In</h4>
+            {% if wrongLogin %}
+            <div class="row mb-2">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="error text-danger text-center">
+                        Wrong login or password!
+                    </div>
+                </div>
+            </div>
+            {% endif %}
             <div class="row mb-2">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <label for="login_email">Email</label>

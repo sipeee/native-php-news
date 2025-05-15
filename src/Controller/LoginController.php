@@ -20,6 +20,7 @@ class LoginController
 
         $request = RequestStack::getInstance()->getRequest();
 
+        $wrongLogin = null;
         if ($request->isMethod('POST') && $request->request->has('login')) {
             $loginData = $request->request->all('login');
             $wrongLogin = !$loginSession->authenticate($loginData['email'], $loginData['password']);
@@ -30,6 +31,7 @@ class LoginController
 
         TwigRenderer::getInstance()->render('login.html.twig', [
             'loggedInUser' => $loginSession->authorize(),
+            'wrongLogin' => $wrongLogin
         ]);
     }
 }
