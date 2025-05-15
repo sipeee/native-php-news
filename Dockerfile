@@ -16,6 +16,14 @@ RUN apt-get update && \
         unzip \
         zip
 
+
+WORKDIR /var/www
+
+ADD .etc/apache2 /etc/apache2
+ADD .etc/php /usr/local/etc/php
+ADD . /var/www
+RUN rm -R /var/www/.etc
+
 RUN docker-php-ext-install pdo pdo_mysql && \
     if [ $APP_ENV == 'prod' ]; then \
         rm /usr/local/etc/php/conf.d/xdebug.ini; \
@@ -35,13 +43,6 @@ RUN if [ $APP_ENV == 'prod' ]; then \
         mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
         rm /usr/local/etc/php/php.ini-production; \
     fi
-
-WORKDIR /var/www
-
-ADD .etc/apache2 /etc/apache2
-ADD .etc/php /usr/local/etc/php
-ADD . /var/www
-RUN rm -R /var/www/.etc
 
 RUN if [ $APP_ENV == 'prod' ]; then \
         sed -i -E 's/\$\{PHP_OPCACHE_VALIDATE_TIMESTAMPS\}/0/g' /usr/local/etc/php/conf.d/opcache.ini; \
