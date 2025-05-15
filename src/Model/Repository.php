@@ -27,6 +27,28 @@ class Repository
         return $this->getFirstRow($statement->fetchAll(\PDO::FETCH_ASSOC));
     }
 
+    public function queryUserByEmail(string $email): ?array
+    {
+        $connection = ConnectionProvider::getInstance()->getConnection();
+        $statement = $connection->prepare('SELECT * FROM `users` WHERE `email` = :email LIMIT 0, 1');
+        $statement->bindValue('email', $email);
+        $statement->execute();
+        $rows = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $this->getFirstRow($rows);
+    }
+
+    public function queryUserById(int $id): ?array
+    {
+        $connection = ConnectionProvider::getInstance()->getConnection();
+        $statement = $connection->prepare("SELECT * FROM `users` WHERE `id` = :id");
+        $statement->bindValue('id', $id);
+
+        $statement->execute();
+
+        return $this->getFirstRow($statement->fetchAll(\PDO::FETCH_ASSOC));
+    }
+
     private function getFirstRow(array $rows): ?array
     {
         return !empty($rows)
