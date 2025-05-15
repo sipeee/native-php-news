@@ -18,7 +18,7 @@ class ShowController
         $id = $request->query->get('id');
 
         if (empty($id) || !is_string($id) || !ctype_digit($id)) {
-            ResponseUtility::redirectToAndExit('/');
+            ResponseUtility::redirectToAndExit('/news/index.php');
         }
 
         $loggedInUser = LoginSession::getInstance()->authorize();
