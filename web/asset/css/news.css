@@ -6,11 +6,19 @@ body, html {
     background: #fff;
 }
 
-.logo-header{
+.header-logo{
     margin: 0;
-    padding: 0;
-    height: 120px;
-    background: #d71921 url('/asset/image/hammer_logo.png') no-repeat center center;
+    padding: 120px 0 0 0;
+    background: #d71921 url('/asset/image/hammer_logo.png') no-repeat center 13px;
+}
+.header-logo .navbar-brand{
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #ffffff;
+}
+.header-logo .navbar-brand:hover{
+    background: #e72931;
 }
 .header-section {
     margin-top: 50px;
