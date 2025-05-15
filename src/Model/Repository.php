@@ -4,12 +4,19 @@ namespace App\Model;
 
 class Repository
 {
-    public function queryPublishedNews(): array
+    public function queryPublishedNewsByKeyword(?string $keyword): array
     {
         $now = new \DateTime();
+        $whereCondition = self::createKeywordConditionInfo($keyword);
+        $whereCondition['sqlParts'][] = 'n.publish_at <= :now';
+        $whereCondition['params']['now'] = $now->format('Y-m-d H:i:s');
+
         $connection = ConnectionProvider::getInstance()->getConnection();
-        $statement = $connection->prepare('SELECT n.id, u.name AS author, n.publish_at, n.title, n.short_content FROM `news` AS n LEFT JOIN `users` AS u ON n.author_id = u.id WHERE n.publish_at <= :now ORDER BY n.publish_at DESC');
-        $statement->bindValue('now', $now->format('Y-m-d H:i:s'));
+        $whereSql = implode(' AND ', $whereCondition['sqlParts']);
+        $statement = $connection->prepare('SELECT n.id, u.name AS author, n.publish_at, n.title, n.short_content FROM `news` AS n LEFT JOIN `users` AS u ON n.author_id = u.id WHERE '.$whereSql.' ORDER BY n.publish_at DESC');
+        foreach ($whereCondition['params'] as $key => $value) {
+            $statement->bindValue($key, $value);
+        }
         $statement->execute();
 
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -54,5 +61,21 @@ class Repository
         return !empty($rows)
             ? $rows[0]
             : null;
+    }
+
+    private static function createKeywordConditionInfo(?string $keyword)
+    {
+        if ($keyword === null || '' === $keyword) {
+            return ['sqlParts' => [], 'params' => []];
+        }
+
+        return [
+            'sqlParts' => [
+                '(LOWER(n.title) LIKE LOWER(:keyword) OR LOWER(n.short_content) LIKE LOWER(:keyword) OR LOWER(n.content) LIKE LOWER(:keyword) OR LOWER(u.name) LIKE LOWER(:keyword))',
+            ],
+            'params' => [
+                'keyword' => '%'.$keyword.'%',
+            ],
+        ];
     }
 }
