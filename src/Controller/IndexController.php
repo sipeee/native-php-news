@@ -18,10 +18,11 @@ class IndexController
         }
 
         $repository = new Repository();
+        $loggedInUser = LoginSession::getInstance()->authorize();
 
         TwigRenderer::getInstance()->render('index.html.twig', [
-            'loggedInUser' => LoginSession::getInstance()->authorize(),
-            'news' => $repository->queryPublishedNewsByKeyword($keyword),
+            'loggedInUser' => $loggedInUser,
+            'news' => $repository->queryNewsByKeyword($keyword, null === $loggedInUser),
             'searchKeyword' => $keyword,
         ]);
     }

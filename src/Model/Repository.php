@@ -4,16 +4,23 @@ namespace App\Model;
 
 class Repository
 {
-    public function queryPublishedNewsByKeyword(?string $keyword): array
+    public function queryNewsByKeyword(?string $keyword, bool $onlyPublished): array
     {
-        $now = new \DateTime();
-        $whereCondition = self::createKeywordConditionInfo($keyword);
-        $whereCondition['sqlParts'][] = 'n.publish_at <= :now';
-        $whereCondition['params']['now'] = $now->format('Y-m-d H:i:s');
-
         $connection = ConnectionProvider::getInstance()->getConnection();
+
+        $whereCondition = self::createKeywordConditionInfo($keyword);
+        if ($onlyPublished) {
+            $now = new \DateTime();
+            $whereCondition['sqlParts'][] = 'n.publish_at <= :now';
+            $whereCondition['params']['now'] = $now->format('Y-m-d H:i:s');
+        }
+
         $whereSql = implode(' AND ', $whereCondition['sqlParts']);
-        $statement = $connection->prepare('SELECT n.id, u.name AS author, n.publish_at, n.title, n.short_content FROM `news` AS n LEFT JOIN `users` AS u ON n.author_id = u.id WHERE '.$whereSql.' ORDER BY n.publish_at DESC');
+        if ('' !== $whereSql) {
+            $whereSql = 'WHERE ' . $whereSql;
+        }
+
+        $statement = $connection->prepare('SELECT n.id, u.name AS author, n.publish_at, n.title, n.short_content FROM `news` AS n LEFT JOIN `users` AS u ON n.author_id = u.id '.$whereSql.' ORDER BY n.publish_at DESC');
         foreach ($whereCondition['params'] as $key => $value) {
             $statement->bindValue($key, $value);
         }

@@ -18,7 +18,7 @@
     <div class="row">
         {% endif %}
         <div class="col-md-6 col-xs-12">
-            <div class="container-fluid">
+            <div class="container-fluid mb-4 {% if date('now') < date(article.publish_at) %}bg-warning{% endif %}" {% if date() < date(article.publish_at) %}title="This article is going to be published at {{ article.publish_at | date('Y-m-d H:i') }}"{% endif %}>
                 <div class="row">
                     <div class="col-xs-12">
                         <h4 class="text-center article-title">{{ article.title }}</h4>
@@ -34,9 +34,7 @@
                         <p class="post-details">{{ article.publish_at | date('Y. m. d. H:i') }}</p>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="container-fluid">
+                <hr>
                 <div class="row">
                     <div class="col-xs-12">
                         <h4>{{ article.short_content }}</h4>
