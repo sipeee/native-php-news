@@ -11,6 +11,9 @@
             </div>
         </div>
     {% endif %}
+    {% include 'partial/article_new_button.html.twig' with {
+        loggedInUser: loggedInUser,
+    } %}
     <div class="row">
         {% for article in news %}
         {% if 0 < loop.index0 and 0 == loop.index0 % 2 %}
@@ -49,7 +52,16 @@
                 </div>
             </div>
         </div>
+        {% else %}
+            <div class="col-xs-12 mb-3 text-center">
+                There is no article yet.
+            </div>
         {% endfor %}
     </div>
+
+    {% include 'partial/article_new_button.html.twig' with {
+        loggedInUser: loggedInUser,
+    } %}
+
 </div>
 {% endblock %}
