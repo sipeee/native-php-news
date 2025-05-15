@@ -1,5 +1,3 @@
 <?php
 
-require_once "../vendor/autoload.php";
-
-(new \App\Controller\IndexController())();
+require __DIR__ . '/news/index.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\News;
 
 use App\Model\LoginSession;
 use App\Model\RequestStack;
