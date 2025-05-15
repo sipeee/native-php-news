@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\LoginSession;
 use App\Model\Repository;
 use App\Model\TwigRenderer;
 
@@ -12,7 +13,8 @@ class IndexController
         $repository = new Repository();
 
         TwigRenderer::getInstance()->render('index.html.twig', [
-            'news' => $repository->queryPublishedNews(),
+            'loggedInUser' => LoginSession::getInstance()->authorize(),
+            'news' => $repository->queryPublishedNews()
         ]);
     }
 }

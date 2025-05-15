@@ -28,6 +28,8 @@ class LoginController
             }
         }
 
-        TwigRenderer::getInstance()->render('login.html.twig');
+        TwigRenderer::getInstance()->render('login.html.twig', [
+            'loggedInUser' => $loginSession->authorize(),
+        ]);
     }
 }

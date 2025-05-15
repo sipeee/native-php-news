@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\LoginSession;
 use App\Model\Repository;
 use App\Model\RequestStack;
 use App\Model\TwigRenderer;
@@ -27,6 +28,7 @@ class ShowController
         }
 
         TwigRenderer::getInstance()->render('show.html.twig', [
+            'loggedInUser' => LoginSession::getInstance()->authorize(),
             'article' => $article,
         ]);
     }
