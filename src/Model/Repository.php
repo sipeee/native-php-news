@@ -29,13 +29,26 @@ class Repository
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function queryPublishedArticleById(int $id): ?array
+    public function queryArticleById(int $id, bool $onlyPublished): ?array
     {
-        $now = new \DateTime();
+        $whereCondition = [
+            'sqlParts' => ['n.id = :id'],
+            'params' => ['id' => $id],
+        ];
+
+        if ($onlyPublished) {
+            $now = new \DateTime();
+            $whereCondition['sqlParts'][] = 'n.publish_at <= :now';
+            $whereCondition['params']['now'] = $now->format('Y-m-d H:i:s');
+        }
+
+        $whereSql = implode(' AND ', $whereCondition['sqlParts']);
+
         $connection = ConnectionProvider::getInstance()->getConnection();
-        $statement = $connection->prepare('SELECT n.id, u.name AS author, n.publish_at, n.title, n.short_content, n.content, n.image FROM `news` AS n LEFT JOIN `users` AS u ON n.author_id = u.id WHERE n.id = :id AND n.publish_at <= :now LIMIT 0, 1');
-        $statement->bindValue('id', $id);
-        $statement->bindValue('now', $now->format('Y-m-d H:i:s'));
+        $statement = $connection->prepare('SELECT n.id, u.name AS author, n.publish_at, n.title, n.short_content, n.content, n.image FROM `news` AS n LEFT JOIN `users` AS u ON n.author_id = u.id WHERE '.$whereSql.' LIMIT 0, 1');
+        foreach ($whereCondition['params'] as $key => $value) {
+            $statement->bindValue($key, $value);
+        }
         $statement->execute();
 
         return $this->getFirstRow($statement->fetchAll(\PDO::FETCH_ASSOC));

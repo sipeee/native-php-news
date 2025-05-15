@@ -21,14 +21,15 @@ class ShowController
             ResponseUtility::redirectToAndExit('/');
         }
 
-        $article = $repository->queryPublishedArticleById($id);
+        $loggedInUser = LoginSession::getInstance()->authorize();
+        $article = $repository->queryArticleById($id, null === $loggedInUser);
 
-        if (empty($article)) {
-            ResponseUtility::redirectToAndExit('/');
+        if (null === $article) {
+            ResponseUtility::redirectToAndExit('/news/index.php');
         }
 
         TwigRenderer::getInstance()->render('show.html.twig', [
-            'loggedInUser' => LoginSession::getInstance()->authorize(),
+            'loggedInUser' => $loggedInUser,
             'article' => $article,
         ]);
     }
