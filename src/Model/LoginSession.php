@@ -47,6 +47,13 @@ class LoginSession
         return $result;
     }
 
+    public function logout(): void
+    {
+        if (isset($_SESSION['loggedin_id'])) {
+            unset($_SESSION['loggedin_id']);
+        }
+    }
+
     private function getAuthenticatedUser(string $email, string $password): ?array
     {
         $repo = new Repository();
