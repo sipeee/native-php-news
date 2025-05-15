@@ -33,6 +33,16 @@ CREATE TABLE news (
 );            
 SQL
         );
+        $connection->query(<<<SQL
+CREATE UNIQUE INDEX  news_author_uidx
+ON news (author_id, id)
+SQL
+        );
+        $connection->query(<<<SQL
+CREATE INDEX news_publish_at_idx
+ON news (publish_at)
+SQL
+        );
     }
 
     /**

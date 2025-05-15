@@ -24,6 +24,12 @@ ADD COLUMN password VARCHAR(72) NOT NULL;
 SQL
         );
 
+        $connection->query(<<<SQL
+CREATE UNIQUE INDEX users_email_uidx
+ON  users (email)
+SQL
+        );
+
         $this->addNewUser(1, 'Sipos Zoltán', 'sipiszoty@gmail.com', 'password1');
         $this->addNewUser(2, 'Teszt Elek', 'tesztelek@hammeragency.eu', 'password2');
         $this->addNewUser(3, 'Nagy István', 'nagyistvan@hammeragency.eu', 'password3');
