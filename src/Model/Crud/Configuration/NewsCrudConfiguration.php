@@ -50,7 +50,7 @@ class NewsCrudConfiguration extends AbstractCrudConfiguration
                 ],
                 [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 3]),
+                    new Assert\Length(['min' => 10]),
                 ],
             ),
             new FormField(
@@ -62,18 +62,35 @@ class NewsCrudConfiguration extends AbstractCrudConfiguration
                 ],
                 [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 3]),
+                    new Assert\Length(['min' => 20]),
                 ],
             ),
             new FormField(
                 'content',
                 'Content',
                 'richtext',
+                [
+                    'required' => true,
+                ],
+                [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['min' => 100]),
+                ],
             ),
             new FormField(
                 'image',
                 'Image',
                 'file',
+                [
+                    'required' => true,
+                ],
+                [
+                    new Assert\NotBlank(),
+                    new Assert\File([
+                        'maxSize' => '1M',
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+                    ]),
+                ],
             ),
             new FormField(
                 'publish_at',
