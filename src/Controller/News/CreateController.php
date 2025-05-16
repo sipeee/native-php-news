@@ -3,8 +3,8 @@
 namespace App\Controller\News;
 
 use App\Model\Crud\Configuration\NewsCrudConfiguration;
+use App\Model\Crud\NewManager;
 use App\Model\LoginSession;
-use App\Model\NewManager;
 use App\Model\TwigRenderer;
 use App\Utility\ResponseUtility;
 
