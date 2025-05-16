@@ -39,6 +39,7 @@ class EnvConfig
 
     private function loadEnvVars()
     {
-        Dotenv::createImmutable(__DIR__);
+        $dotEnv = Dotenv::createImmutable(__DIR__.'/..');
+        $dotEnv->safeLoad();
     }
 }
