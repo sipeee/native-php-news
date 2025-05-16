@@ -2,7 +2,9 @@
 
 namespace App\Controller\News;
 
+use App\Model\Crud\Configuration\NewsCrudConfiguration;
 use App\Model\LoginSession;
+use App\Model\NewManager;
 use App\Model\TwigRenderer;
 use App\Utility\ResponseUtility;
 
@@ -17,9 +19,16 @@ class CreateController
             ResponseUtility::redirectToAndExit('/news/index.php');
         }
 
-        TwigRenderer::getInstance()->render('new.html.twig', [
+        $configuration = new NewsCrudConfiguration();
+        $manager = new NewManager($configuration);
+        $parameters = $manager->handle();
+        if (null === $parameters) {
+            ResponseUtility::redirectToAndExit('/news/index.php');
+        }
+
+        TwigRenderer::getInstance()->render('news/new.html.twig', array_merge($parameters, [
             'loggedInUser' => $loggedInUser,
-            'article' => [],
-        ]);
+            'configuration' => $configuration,
+        ]));
     }
 }

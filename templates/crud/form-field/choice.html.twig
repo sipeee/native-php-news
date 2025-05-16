@@ -1,0 +1,8 @@
+<select name="form[{{ name }}]" {% if parameters['required'] is defined and parameters['required'] %}required="required"{% endif %}>
+    {% if parameters['required'] is defined and parameters['required'] %}
+        <option value="">No selection</option>
+    {% endif %}
+    {% for optionValue, optionLabel in parameters.options %}
+        <option value="{{ optionValue }}" {% if value is not null and optionValue == value %}selected="selected"{% endif %}>{{ optionLabel }}</option>
+    {% endfor %}
+</select>

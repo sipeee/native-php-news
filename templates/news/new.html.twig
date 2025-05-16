@@ -1,8 +1,15 @@
 {% extends "layout/layout.html.twig" %}
 
+{% block header %}
+    {% include 'news/formResources.html.twig' %}
+{% endblock %}
+
 {% block title %}Create new article "{{  ''|escape }}"{% endblock %}
 
 {% block body %}
+
+{% include 'crud/newForm.html.twig' %}
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 text-center">

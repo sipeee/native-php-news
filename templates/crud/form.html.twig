@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>{% block form_title %}{% endblock %}</h2>
+        <form action="{% block form_action %}{% endblock %}" method="{{ constant('Symfony\\Component\\HttpFoundation\\Request::METHOD_POST') }}" enctype="multipart/form-data">
+            {% if formErrors[''] is defined and formErrors[''] is not empty %}
+                <div class="col-xs-12 mt-3">
+                    {% include "crud/formErrorList.html.twig" with {
+                        errors: formErrors['']
+                    } %}
+                </div>
+            {% endif %}
+
+            {% for field in fields %}
+                {% set errorPath = '[' ~ field.name ~ ']' %}
+
+                <div class="col-xs-12 col-md-4">
+                    <label for="form_{{ field.name }}">{{ field.label }}</label>
+                </div>
+
+                <div class="col-xs-12">
+                    {% include 'crud/form-field/' ~ field.type ~ '.html.twig' with {
+                        name: field.name,
+                        value: row[field.name] | default(null),
+                        parameters: field.parameters
+                    } %}
+                </div>
+
+                {% if formErrors[errorPath] is defined and formErrors[errorPath] is not empty %}
+                    <div class="col-xs-12">
+                        {% include "crud/formErrorList.html.twig" with {
+                            errors: formErrors[errorPath],
+                        } %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="col-xs-12 text-center mt-3">
+                <button type="submit" class="btn btn-success">{% block form_submit_text %}{% endblock %}</button>
+            </div>
+        </form>
+    </div>
+</div>

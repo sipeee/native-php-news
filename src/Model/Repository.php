@@ -76,6 +76,17 @@ class Repository
         return $this->getFirstRow($statement->fetchAll(\PDO::FETCH_ASSOC));
     }
 
+    public function queryUserChoiceOptions(): ?array
+    {
+        $connection = ConnectionProvider::getInstance()->getConnection();
+        $statement = $connection->prepare("SELECT id, email FROM `users`");
+
+        $statement->execute();
+        $rows = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        return array_column($rows, 'email', 'id');
+    }
+
     private function getFirstRow(array $rows): ?array
     {
         return !empty($rows)

@@ -1,0 +1,9 @@
+{% extends "crud/form.html.twig" %}
+
+{% block title %}{{ configuration.title }} creation{% endblock %}
+
+{% block form_title %}Create {{ configuration.title|lower }}{% endblock %}
+
+{% block form_action %}{{ request.baseUrl }}{% endblock %}
+
+{% block form_submit_text %}Create{% endblock %}
