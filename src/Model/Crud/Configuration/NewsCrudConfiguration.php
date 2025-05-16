@@ -21,9 +21,39 @@ class NewsCrudConfiguration extends AbstractCrudConfiguration
 
     public function getCreateFields(): array
     {
+        return $this->getEditOrCreateFields(false);
+    }
+
+    public function getEditFields(): array
+    {
+        return $this->getEditOrCreateFields(true);
+    }
+
+    public function modifySubmittedCreateFormData(array $formData): array
+    {
+        return $this->modifySubmittedFormData($formData);
+    }
+
+    public function modifySubmittedUpdateFormData(array $formData): array
+    {
+        return $this->modifySubmittedFormData($formData);
+    }
+
+    private function getEditOrCreateFields(bool $isEdit): array
+    {
         $repo = new Repository();
 
         $userChoiceOptions = $repo->queryUserChoiceOptions();
+
+        $imageConstraints = [
+            new Assert\File([
+                'maxSize' => '1M',
+                'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+            ]),
+        ];
+        if (!$isEdit) {
+            $imageConstraints[] = new Assert\NotBlank();
+        }
 
         return [
             new FormField(
@@ -82,15 +112,9 @@ class NewsCrudConfiguration extends AbstractCrudConfiguration
                 'Image',
                 'file',
                 [
-                    'required' => true,
+                    'required' => !$isEdit,
                 ],
-                [
-                    new Assert\NotBlank(),
-                    new Assert\File([
-                        'maxSize' => '1M',
-                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
-                    ]),
-                ],
+                $imageConstraints,
             ),
             new FormField(
                 'publish_at',
@@ -107,11 +131,13 @@ class NewsCrudConfiguration extends AbstractCrudConfiguration
         ];
     }
 
-    public function modifySubmittedCreateFormData(array $formData): array
+    private function modifySubmittedFormData(array $formData): array
     {
         if (null !== $formData['image']) {
             $fileName = ImageMover::moveToDirectory($formData['image'], __DIR__.'/../../../../web/uploads/news');
             $formData['image'] = $fileName;
+        } else {
+            unset($formData['image']);
         }
 
         return $formData;

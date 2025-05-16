@@ -1,0 +1,9 @@
+{% extends "crud/form.html.twig" %}
+
+{% block title %}{{ configuration.title }} edit{% endblock %}
+
+{% block form_title %}Edit {{ configuration.title|lower }}{% endblock %}
+
+{% block form_action %}{{ request.baseUrl }}?{{ {'id': id} | url_encode }}{% endblock %}
+
+{% block form_submit_text %}Update{% endblock %}

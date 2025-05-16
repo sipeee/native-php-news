@@ -18,4 +18,9 @@ abstract class AbstractCrudConfiguration implements CrudConfigurationInterface
     {
         return $formData;
     }
+
+    public function modifySubmittedUpdateFormData(array $formData): array
+    {
+        return $formData;
+    }
 }

@@ -63,7 +63,9 @@ class FormValidator
      */
     private function getFormFields(): array
     {
-        return $this->configuration->getCreateFields();
+        return $this->isEditValidation
+            ? $this->configuration->getEditFields()
+            : $this->configuration->getCreateFields();
     }
 
     private static function normalizeFormData(array $formData): array

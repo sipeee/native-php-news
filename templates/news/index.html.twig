@@ -44,10 +44,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <a href="/news/show.php?{{ {'id': article.id} | url_encode | escape('html_attr') }}" class="btn btn-primary article-show-button">
-                            Show post
-                        </a>
+                    <div class="col-xs-12 text-center mb-4 mt-4">
+                        <div class="btn-group">
+                            {% if loggedInUser is not null %}
+                                <a href="/news/edit.php?{{ {'id': article.id} | url_encode }}" class="btn btn-success">Edit
+                                    Edit article
+                                </a>
+                            {% endif %}
+                            <a href="/news/show.php?{{ {'id': article.id} | url_encode }}" class="btn btn-primary">
+                                Show article
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -15,6 +15,13 @@ interface CrudConfigurationInterface
      */
     public function getCreateFields(): array;
 
+    /**
+     * @return array<int, FormField>
+     */
+    public function getEditFields(): array;
+
     public function modifySubmittedCreateFormData(array $formData): array;
+
+    public function modifySubmittedUpdateFormData(array $formData): array;
 
 }
