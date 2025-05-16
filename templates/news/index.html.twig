@@ -55,7 +55,7 @@
                                 Show article
                             </a>
                             {% if loggedInUser is not null %}
-                                <a href="/news/delete.php?{{ {'id': article.id} | url_encode }}" class="btn btn-danger">
+                                <a href="/news/delete.php?{{ {'id': article.id} | url_encode }}" class="btn btn-danger delete-confirmation">
                                     Delete article
                                 </a>
                             {% endif %}
