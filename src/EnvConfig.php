@@ -24,7 +24,7 @@ class EnvConfig
 
     public function getEnv(string $key): string
     {
-        return getenv($key);
+        return $_ENV[$key];
     }
 
     public function isProdEnvironment(): string
