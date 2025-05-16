@@ -32,6 +32,11 @@
                 <a href="/news/index.php" class="btn btn-primary">
                     Back to index
                 </a>
+                {% if loggedInUser is not null %}
+                    <a href="/news/delete.php?{{ {'id': article.id} | url_encode }}" class="btn btn-danger">
+                        Delete article
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

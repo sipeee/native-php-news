@@ -54,6 +54,11 @@
                             <a href="/news/show.php?{{ {'id': article.id} | url_encode }}" class="btn btn-primary">
                                 Show article
                             </a>
+                            {% if loggedInUser is not null %}
+                                <a href="/news/delete.php?{{ {'id': article.id} | url_encode }}" class="btn btn-danger">
+                                    Delete article
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
