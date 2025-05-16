@@ -14,6 +14,11 @@ class NewsCrudConfiguration extends AbstractCrudConfiguration
         return 'news';
     }
 
+    public function getTitle(): string
+    {
+        return 'Article';
+    }
+
     public function getCreateFields(): array
     {
         $repo = new Repository();

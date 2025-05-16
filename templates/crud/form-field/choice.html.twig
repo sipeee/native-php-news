@@ -1,5 +1,5 @@
 <select name="form[{{ name }}]" class="form-control" {% if parameters['required'] is defined and parameters['required'] %}required="required"{% endif %}>
-    {% if parameters['required'] is defined and parameters['required'] %}
+    {% if parameters['required'] is not defined or not parameters['required'] %}
         <option value="">No selection</option>
     {% endif %}
     {% for optionValue, optionLabel in parameters.options %}
