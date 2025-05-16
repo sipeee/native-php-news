@@ -28,7 +28,7 @@ class ShowController
             ResponseUtility::redirectToAndExit('/news/index.php');
         }
 
-        TwigRenderer::getInstance()->render('show.html.twig', [
+        TwigRenderer::getInstance()->render('news/show.html.twig', [
             'loggedInUser' => $loggedInUser,
             'article' => $article,
         ]);
